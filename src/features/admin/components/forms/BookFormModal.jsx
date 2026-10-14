@@ -38,7 +38,7 @@ const BookFormModal = ({ isOpen, setIsOpen, fetchBooks }) => {
       setError(error.message);
       setLoading(false);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 

@@ -29,3 +29,12 @@ export const createBook = async (data) => {
     throw new Error(error, 'Failed Create Book.');
   }
 };
+
+export const updateBook = async (id, data) => {
+  try {
+    const response = await apiClient.put(`/book/${id}`, data);
+    return response.data;
+  } catch (error) {
+    throw new Error(error, 'Failed Update Book.');
+  }
+};

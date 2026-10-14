@@ -6,15 +6,21 @@ import InputSearch from '../../../components/ui/input/search/InputSearch';
 import Button from '../../../components/ui/button/Button';
 import { useState } from 'react';
 import BookFormModal from '../components/forms/BookFormModal';
+import EditBookFormModal from '../components/forms/EditBookFormModal';
 
 const AdminBooksPage = () => {
   const { books, search, setSearch, handleSearch, fetchBooks } = useBooks();
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  const lowStock = books.filter((book) => book.stockBuku < 5);
+  const outStock = books.filter((book) => book.stockBuku === 0);
 
   const stats = [
-    { title: 'Total Books', value: 5000 },
-    { title: 'Low Stock', value: 20 },
-    { title: 'Out Stock', value: 10 },
+    { title: 'Total Books', value: Number(books.length) },
+    { title: 'Low Stock', value: Number(lowStock.length) },
+    { title: 'Out Stock', value: Number(outStock.length) },
   ];
 
   return (
@@ -41,14 +47,12 @@ const AdminBooksPage = () => {
               <span>Add Book</span>
             </Button>
           </div>
-          <div className="flex items-center gap-6">
-            <InputSearch
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              handleSearch={handleSearch}
-              placeholder="Search Books"
-            />
-          </div>
+          <InputSearch
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            handleSearch={handleSearch}
+            placeholder="Search Books"
+          />
         </div>
 
         <table className="w-full table-fixed text-sm">
@@ -102,7 +106,13 @@ const AdminBooksPage = () => {
                       <Trash size={18} />
                     </button>
 
-                    <button className="rounded-md bg-orange-400 p-2 text-white transition hover:bg-orange-500">
+                    <button
+                      onClick={() => {
+                        setSelectedBook(book);
+                        setIsEditOpen(true);
+                      }}
+                      className="rounded-md bg-orange-400 p-2 text-white transition hover:bg-orange-500"
+                    >
                       <Pen size={18} />
                     </button>
                   </div>
@@ -122,6 +132,17 @@ const AdminBooksPage = () => {
           setIsOpen={setIsOpen}
           fetchBooks={fetchBooks}
         />
+
+        {/* EditBookFormModal */}
+        {selectedBook && (
+          <EditBookFormModal
+            key={selectedBook.id}
+            isEditOpen={isEditOpen}
+            setIsEditOpen={setIsEditOpen}
+            selectedBook={selectedBook}
+            fetchBooks={fetchBooks}
+          />
+        )}
       </div>
     </AdminLayouts>
   );
