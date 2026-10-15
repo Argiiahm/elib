@@ -38,3 +38,12 @@ export const updateBook = async (id, data) => {
     throw new Error(error, 'Failed Update Book.');
   }
 };
+
+export const deleteBook = async (id) => {
+  try {
+    const response = await apiClient.delete(`/book/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error, 'Failed Delete Book.');
+  }
+};

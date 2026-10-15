@@ -44,6 +44,7 @@ const BookFormModal = ({ isOpen, setIsOpen, fetchBooks }) => {
 
   return (
     <FormModal
+      mode="create"
       isOpen={isOpen}
       title="New Book"
       description="Create a new book"

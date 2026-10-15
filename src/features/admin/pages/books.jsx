@@ -7,11 +7,13 @@ import Button from '../../../components/ui/button/Button';
 import { useState } from 'react';
 import BookFormModal from '../components/forms/BookFormModal';
 import EditBookFormModal from '../components/forms/EditBookFormModal';
+import DeleteFormModal from '../components/forms/DeleteFormModal';
 
 const AdminBooksPage = () => {
   const { books, search, setSearch, handleSearch, fetchBooks } = useBooks();
   const [isOpen, setIsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
 
   const lowStock = books.filter((book) => book.stockBuku < 5);
@@ -102,7 +104,13 @@ const AdminBooksPage = () => {
 
                 <td className="px-4 py-5">
                   <div className="flex items-center justify-center gap-2">
-                    <button className="rounded-md bg-red-400 p-2 text-white transition hover:bg-red-500">
+                    <button
+                      onClick={() => {
+                        setSelectedBook(book);
+                        setIsDeleteOpen(true);
+                      }}
+                      className="rounded-md bg-red-400 p-2 text-white transition hover:bg-red-500"
+                    >
                       <Trash size={18} />
                     </button>
 
@@ -143,6 +151,14 @@ const AdminBooksPage = () => {
             fetchBooks={fetchBooks}
           />
         )}
+
+        {/* isDeleteOpen */}
+        <DeleteFormModal
+          isOpen={isDeleteOpen}
+          setIsOpen={setIsDeleteOpen}
+          selectedBook={selectedBook}
+          fetchBooks={fetchBooks}
+        />
       </div>
     </AdminLayouts>
   );

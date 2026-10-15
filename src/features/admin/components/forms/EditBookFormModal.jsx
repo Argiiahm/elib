@@ -8,7 +8,12 @@ import InputForm from '../../../../components/ui/input';
 import Label from '../../../../components/ui/input/Label';
 import useCategories from '../../../../hooks/useCategories';
 
-const EditBookFormModal = ({ isEditOpen, setIsEditOpen, selectedBook, fetchBooks }) => {
+const EditBookFormModal = ({
+  isEditOpen,
+  setIsEditOpen,
+  selectedBook,
+  fetchBooks,
+}) => {
   const categories = useCategories();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -54,6 +59,7 @@ const EditBookFormModal = ({ isEditOpen, setIsEditOpen, selectedBook, fetchBooks
 
   return (
     <FormModal
+      mode="edit"
       onSubmit={handleSubmit(onSubmit)}
       title="Edit Book"
       description="edit a book"
