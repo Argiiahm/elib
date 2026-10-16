@@ -2,7 +2,7 @@ import { useState } from 'react';
 import FormModal from '../../../../components/FormModal';
 import { deleteBook } from '../../../../services/book.service';
 
-const DeleteFormModal = ({ isOpen, setIsOpen, selectedBook, fetchBooks }) => {
+const DeleteBookModal = ({ isOpen, setIsOpen, selectedBook, fetchBooks }) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async (e) => {
@@ -32,4 +32,4 @@ const DeleteFormModal = ({ isOpen, setIsOpen, selectedBook, fetchBooks }) => {
   );
 };
 
-export default DeleteFormModal;
+export default DeleteBookModal;

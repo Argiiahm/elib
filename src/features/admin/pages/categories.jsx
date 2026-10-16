@@ -1,13 +1,18 @@
+import { useState } from 'react';
 import { Pen, Plus, Trash } from 'lucide-react';
 import useCategories from '../../../hooks/useCategories';
 import AdminLayouts from '../components/AdminLayouts';
 import Button from '../../../components/ui/button/Button';
-import { useState } from 'react';
-import FormModal from '../../../components/FormModal';
+import CategoryFormModal from '../components/forms/CategoryFormModal';
+import CategoryEditFormModal from '../components/forms/EditCategoryFormModal';
+import DeleteCategoryModal from '../components/forms/DeleteCategoryModal';
 
 const AdminCategoriesPage = () => {
-  const categories = useCategories();
+  const { categories, fetchData } = useCategories();
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   return (
     <AdminLayouts>
@@ -15,9 +20,9 @@ const AdminCategoriesPage = () => {
         <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
           <div className="flex items-center gap-2">
             <div>
-              <h1 className="text-2xl font-bold">Data Books Table</h1>
+              <h1 className="text-2xl font-bold">Data Categories Table</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Manage and view Books.
+                Manage and view Categories.
               </p>
             </div>
             <Button
@@ -25,7 +30,7 @@ const AdminCategoriesPage = () => {
               customStyle="flex items-center gap-2 text-orange-500 font-medium px-6 hover:opacity-60 transition duration-300 easy-in-out"
             >
               <Plus />
-              <span>Add Book</span>
+              <span>Add Category</span>
             </Button>
           </div>
         </div>
@@ -55,11 +60,11 @@ const AdminCategoriesPage = () => {
 
                 <td className="px-6 py-5">
                   <div className="flex items-center justify-center gap-2">
-                    <button className="rounded-md bg-red-400 p-2 text-white transition hover:bg-red-500">
+                    <button onClick={() => { setSelectedCategory(category); setIsDeleteOpen(true); }} className="rounded-md bg-red-400 p-2 text-white transition hover:bg-red-500">
                       <Trash size={18} />
                     </button>
 
-                    <button className="rounded-md bg-orange-400 p-2 text-white transition hover:bg-orange-500">
+                    <button onClick={() => { setSelectedCategory(category); setIsEditOpen(true); }} className="rounded-md bg-orange-400 p-2 text-white transition hover:bg-orange-500">
                       <Pen size={18} />
                     </button>
                   </div>
@@ -73,12 +78,9 @@ const AdminCategoriesPage = () => {
           Showing 1 orders
         </div>
 
-        <FormModal
-          title="Added New Book"
-          description="Fill the input for create new book"
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-        />
+        <CategoryFormModal isOpen={isOpen} setIsOpen={setIsOpen} fetchData={fetchData}/>
+        <CategoryEditFormModal key={selectedCategory?.id} selectedCategory={selectedCategory} isEditOpen={isEditOpen} setIsEditOpen={setIsEditOpen} fetchData={fetchData} />
+        <DeleteCategoryModal key={selectedCategory?.id} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} selectedCategory={selectedCategory} fetchData={fetchData} mode="delete" />
       </div>
     </AdminLayouts>
   );

@@ -7,7 +7,7 @@ import Button from '../../../components/ui/button/Button';
 import { useState } from 'react';
 import BookFormModal from '../components/forms/BookFormModal';
 import EditBookFormModal from '../components/forms/EditBookFormModal';
-import DeleteFormModal from '../components/forms/DeleteFormModal';
+import DeleteBookModal from '../components/forms/DeleteBookModal';
 
 const AdminBooksPage = () => {
   const { books, search, setSearch, handleSearch, fetchBooks } = useBooks();
@@ -29,7 +29,7 @@ const AdminBooksPage = () => {
     <AdminLayouts>
       <div className="flex items-center border-b border-gray-200">
         {stats.map((stat) => (
-          <DashboardStats stat={stat} />
+          <DashboardStats key={stat.title} stat={stat} />
         ))}
       </div>
       <div className="overflow-x-auto border-b border-gray-200">
@@ -71,7 +71,7 @@ const AdminBooksPage = () => {
 
           <tbody className="divide-y divide-gray-200">
             {books.map((book) => (
-              <tr className="transition-colors hover:bg-gray-50">
+              <tr key={book.id} className="transition-colors hover:bg-gray-50">
                 <td className="px-4 py-5">
                   <p className="whitespace-nowrap font-semibold">
                     {book.bookCode}
@@ -153,7 +153,7 @@ const AdminBooksPage = () => {
         )}
 
         {/* isDeleteOpen */}
-        <DeleteFormModal
+        <DeleteBookModal
           isOpen={isDeleteOpen}
           setIsOpen={setIsDeleteOpen}
           selectedBook={selectedBook}

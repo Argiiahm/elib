@@ -14,7 +14,7 @@ const EditBookFormModal = ({
   selectedBook,
   fetchBooks,
 }) => {
-  const categories = useCategories();
+  const {categories} = useCategories();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +45,6 @@ const EditBookFormModal = ({
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      console.log('id', selectedBook.id);
       await updateBook(selectedBook.id, data);
       await fetchBooks();
       handleClose();

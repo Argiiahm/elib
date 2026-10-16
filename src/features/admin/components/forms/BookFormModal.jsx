@@ -9,7 +9,7 @@ import Label from '../../../../components/ui/input/Label';
 import useCategories from '../../../../hooks/useCategories';
 
 const BookFormModal = ({ isOpen, setIsOpen, fetchBooks }) => {
-  const categories = useCategories();
+  const {categories} = useCategories();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
