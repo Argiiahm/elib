@@ -43,3 +43,12 @@ export const getMe = async () => {
     throw new Error(error.response?.data?.message || 'Failed Me');
   }
 };
+
+export const logout = async () => {
+  try {
+    await apiClient.post('/auth/logout');
+    setAccessToken(null);
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Failed Logout');
+  }
+};

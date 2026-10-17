@@ -3,8 +3,8 @@ import useBorrows from '../../../hooks/useBorrows';
 import AdminLayouts from '../components/AdminLayouts';
 
 const ReturnedBorrowsAdminPage = () => {
-  const borrows = useBorrows();
-  console.log(borrows);
+  const { borrows } = useBorrows();
+  
   const requestsBorrow = borrows.filter(
     (borrow) => borrow.status === 'returned'
   );
