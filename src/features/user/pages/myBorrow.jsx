@@ -1,9 +1,9 @@
 import { RotateCcw } from 'lucide-react';
 import UserLayouts from '../components/UserLayouts';
-import useBorrows from '../../../hooks/useBorrows';
+import useMyBorrows from '../hooks/useMyBorrows';
 
 const MyBorrowPage = () => {
-  const { borrows } = useBorrows();
+  const { borrows } = useMyBorrows();
   const myBorrows = borrows.filter(
     (borrow) => borrow.status === 'pending' || borrow.status === 'accepted'
   );

@@ -60,11 +60,23 @@ const AdminCategoriesPage = () => {
 
                 <td className="px-6 py-5">
                   <div className="flex items-center justify-center gap-2">
-                    <button onClick={() => { setSelectedCategory(category); setIsDeleteOpen(true); }} className="rounded-md bg-red-400 p-2 text-white transition hover:bg-red-500">
+                    <button
+                      onClick={() => {
+                        setSelectedCategory(category);
+                        setIsDeleteOpen(true);
+                      }}
+                      className="rounded-md bg-red-400 p-2 text-white transition hover:bg-red-500"
+                    >
                       <Trash size={18} />
                     </button>
 
-                    <button onClick={() => { setSelectedCategory(category); setIsEditOpen(true); }} className="rounded-md bg-orange-400 p-2 text-white transition hover:bg-orange-500">
+                    <button
+                      onClick={() => {
+                        setSelectedCategory(category);
+                        setIsEditOpen(true);
+                      }}
+                      className="rounded-md bg-orange-400 p-2 text-white transition hover:bg-orange-500"
+                    >
                       <Pen size={18} />
                     </button>
                   </div>
@@ -78,9 +90,26 @@ const AdminCategoriesPage = () => {
           Showing 1 orders
         </div>
 
-        <CategoryFormModal isOpen={isOpen} setIsOpen={setIsOpen} fetchData={fetchData}/>
-        <CategoryEditFormModal key={selectedCategory?.id} selectedCategory={selectedCategory} isEditOpen={isEditOpen} setIsEditOpen={setIsEditOpen} fetchData={fetchData} />
-        <DeleteCategoryModal key={selectedCategory?.id} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} selectedCategory={selectedCategory} fetchData={fetchData} mode="delete" />
+        <CategoryFormModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          fetchData={fetchData}
+        />
+        <CategoryEditFormModal
+          key={selectedCategory?.id}
+          selectedCategory={selectedCategory}
+          isEditOpen={isEditOpen}
+          setIsEditOpen={setIsEditOpen}
+          fetchData={fetchData}
+        />
+        <DeleteCategoryModal
+          key={selectedCategory?.id}
+          isOpen={isDeleteOpen}
+          setIsOpen={setIsDeleteOpen}
+          selectedCategory={selectedCategory}
+          fetchData={fetchData}
+          mode="delete"
+        />
       </div>
     </AdminLayouts>
   );

@@ -14,7 +14,7 @@ const EditBookFormModal = ({
   selectedBook,
   fetchBooks,
 }) => {
-  const {categories} = useCategories();
+  const { categories } = useCategories();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 

@@ -1,17 +1,21 @@
-import { createCategory } from "../../../../services/category.service";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import FormModal from "../../../../components/FormModal";
-import InputForm from "../../../../components/ui/input";
-import { CategorySchema } from "../../../../schemas/category.schema";
-
+import { createCategory } from '../../../../services/category.service';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import FormModal from '../../../../components/FormModal';
+import InputForm from '../../../../components/ui/input';
+import { CategorySchema } from '../../../../schemas/category.schema';
 
 const CategoryFormModal = ({ isOpen, setIsOpen, fetchData }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { register, handleSubmit, reset ,formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(CategorySchema),
   });
 
@@ -19,7 +23,7 @@ const CategoryFormModal = ({ isOpen, setIsOpen, fetchData }) => {
     setIsOpen(false);
     setError(null);
     reset();
-  }
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -32,10 +36,17 @@ const CategoryFormModal = ({ isOpen, setIsOpen, fetchData }) => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <FormModal onSubmit={handleSubmit(onSubmit)} title="New Category" description="create a new category" isOpen={isOpen} onClose={handleClose} loading={loading}>
+    <FormModal
+      onSubmit={handleSubmit(onSubmit)}
+      title="New Category"
+      description="create a new category"
+      isOpen={isOpen}
+      onClose={handleClose}
+      loading={loading}
+    >
       <InputForm
         error={errors.name}
         {...register('name')}

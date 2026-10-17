@@ -8,7 +8,7 @@ import InputSearch from '../../../components/ui/input/search/InputSearch';
 
 const BooksPage = () => {
   const { books, search, setSearch, handleSearch, loading } = useBooks();
-  const categories = useCategories();
+  const { categories } = useCategories();
 
   return (
     <UserLayouts>

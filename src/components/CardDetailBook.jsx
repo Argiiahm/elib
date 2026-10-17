@@ -1,11 +1,11 @@
 import { BookOpen, Hash, RefreshCcw, ShoppingBagIcon } from 'lucide-react';
 import { Link } from 'react-router';
 import { borrowBook } from '../services/borrow.service';
-import useBorrows from '../hooks/useBorrows';
 import { useEffect, useState } from 'react';
+import useMyBorrows from '../features/user/hooks/useMyBorrows';
 
 const CardDetailBook = ({ book }) => {
-  const { borrows, fetchBorrow } = useBorrows();
+  const { borrows, fetchBorrow } = useMyBorrows();
   const [borrowStatus, setBorrowStatus] = useState('');
 
   useEffect(() => {

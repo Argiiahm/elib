@@ -4,7 +4,7 @@ import useCategories from '../../../hooks/useCategories';
 import InputSearch from '../../../components/ui/input/search/InputSearch';
 
 const CategoriesPage = () => {
-  const categories = useCategories();
+  const { categories } = useCategories();
   return (
     <UserLayouts>
       <div className="m-10">

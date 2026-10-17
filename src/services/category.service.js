@@ -5,7 +5,9 @@ export const getCategories = async () => {
     const response = await apiClient.get('/categories');
     return response.data;
   } catch (error) {
-    throw new Error(error?.response?.data?.message || 'Failed Fetch Categories');
+    throw new Error(
+      error?.response?.data?.message || 'Failed Fetch Categories'
+    );
   }
 };
 
@@ -15,7 +17,6 @@ export const getCategory = async (id) => {
     return response.data;
   } catch (error) {
     throw new Error(error?.response?.data?.message || 'Failed Fetch Category');
-
   }
 };
 
@@ -24,9 +25,9 @@ export const createCategory = async (data) => {
     const response = await apiClient.post('/category', data);
     return response.data;
   } catch (error) {
-     throw new Error(error?.response?.data?.message || 'Failed Create Category');
+    throw new Error(error?.response?.data?.message || 'Failed Create Category');
   }
-}
+};
 
 export const updateCategory = async (id, data) => {
   try {
@@ -35,7 +36,7 @@ export const updateCategory = async (id, data) => {
   } catch (error) {
     throw new Error(error?.response?.data?.message || 'Failed Update Category');
   }
-}
+};
 
 export const deleteCategory = async (id) => {
   try {
@@ -44,4 +45,4 @@ export const deleteCategory = async (id) => {
   } catch (error) {
     throw new Error(error?.response?.data?.message || 'Failed Delete Category');
   }
-}
+};

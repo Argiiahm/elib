@@ -1,16 +1,25 @@
-import { useForm } from "react-hook-form";
-import FormModal from "../../../../components/FormModal";
-import InputForm from "../../../../components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CategorySchema } from "../../../../schemas/category.schema";
-import { useState } from "react";
-import { updateCategory } from "../../../../services/category.service";
+import { useForm } from 'react-hook-form';
+import FormModal from '../../../../components/FormModal';
+import InputForm from '../../../../components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CategorySchema } from '../../../../schemas/category.schema';
+import { useState } from 'react';
+import { updateCategory } from '../../../../services/category.service';
 
-const CategoryEditFormModal = ({ isEditOpen, setIsEditOpen, selectedCategory, fetchData }) => {
+const CategoryEditFormModal = ({
+  isEditOpen,
+  setIsEditOpen,
+  selectedCategory,
+  fetchData,
+}) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(CategorySchema),
     defaultValues: {
       name: selectedCategory?.name,
@@ -20,7 +29,7 @@ const CategoryEditFormModal = ({ isEditOpen, setIsEditOpen, selectedCategory, fe
   const handleClose = () => {
     setIsEditOpen(false);
     setError(null);
-  }
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -29,15 +38,21 @@ const CategoryEditFormModal = ({ isEditOpen, setIsEditOpen, selectedCategory, fe
       await fetchData();
       handleClose();
     } catch (error) {
-      setError(error)
+      setError(error);
     } finally {
       setLoading(false);
     }
-  }
-
+  };
 
   return (
-    <FormModal onSubmit={handleSubmit(onSubmit)} title="Edit Category" description="Edit a category" isOpen={isEditOpen} onClose={handleClose} loading={loading}>
+    <FormModal
+      onSubmit={handleSubmit(onSubmit)}
+      title="Edit Category"
+      description="Edit a category"
+      isOpen={isEditOpen}
+      onClose={handleClose}
+      loading={loading}
+    >
       <InputForm
         error={errors.name}
         {...register('name')}
@@ -47,7 +62,7 @@ const CategoryEditFormModal = ({ isEditOpen, setIsEditOpen, selectedCategory, fe
       />
       {error && <p className="text-red-500">{error?.message}</p>}
     </FormModal>
-  )
+  );
 };
 
 export default CategoryEditFormModal;

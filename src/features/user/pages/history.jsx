@@ -1,8 +1,8 @@
-import useBorrows from '../../../hooks/useBorrows';
 import UserLayouts from '../components/UserLayouts';
+import useMyBorrows from '../hooks/useMyBorrows';
 
 const HistoryPage = () => {
-  const { borrows } = useBorrows();
+  const { borrows } = useMyBorrows();
   const HistoriesBorrows = borrows.filter(
     (borrow) => borrow.status === 'returned' || borrow.status === 'rejected'
   );

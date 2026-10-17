@@ -13,6 +13,8 @@ import ProtectedRoute from './protectedRoute';
 import AdminDashboardPage from '../features/admin/pages/dashboard';
 import AdminBooksPage from '../features/admin/pages/books';
 import AdminCategoriesPage from '../features/admin/pages/categories';
+import BorrowsAdminPage from '../features/admin/pages/borrows';
+import ReturnedBorrowsAdminPage from '../features/admin/pages/returnedBorrows';
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,14 @@ const router = createBrowserRouter([
       {
         path: '/elib/admin/categories',
         element: <AdminCategoriesPage />,
+      },
+      {
+        path: '/elib/admin/borrows',
+        element: <BorrowsAdminPage />,
+      },
+      {
+        path: '/elib/admin/borrow-returned',
+        element: <ReturnedBorrowsAdminPage />,
       },
     ],
   },

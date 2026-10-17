@@ -14,9 +14,9 @@ const useCategories = () => {
     }
   }, []);
 
-    useEffect(() => {
-      fetchData();
-    }, [fetchData]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return { categories, fetchData };
 };

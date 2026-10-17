@@ -8,7 +8,7 @@ const FormModal = ({
   onSubmit,
   children,
   loading,
-  mode
+  mode,
 }) => {
   if (!isOpen) return null;
   return (
@@ -50,7 +50,13 @@ const FormModal = ({
                   type="submit"
                   className="ml-2 rounded-md bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600 cursor-pointer"
                 >
-                  {mode === 'delete' ? (loading ? 'Deleting...' : 'Delete') : (loading ? 'Saving...' : 'Save')}
+                  {mode === 'delete'
+                    ? loading
+                      ? 'Deleting...'
+                      : 'Delete'
+                    : loading
+                      ? 'Saving...'
+                      : 'Save'}
                 </button>
               </div>
             </div>
