@@ -2,7 +2,13 @@ import FormModal from '../../../../components/FormModal';
 import { useState } from 'react';
 import { rejectBorrow } from '../../../../services/borrow.service';
 
-const RejectBorrowFormModal = ({ isOpen, setIsOpen, selectedBorrow, fetchBorrows, mode }) => {
+const RejectBorrowFormModal = ({
+  isOpen,
+  setIsOpen,
+  selectedBorrow,
+  fetchBorrows,
+  mode,
+}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -10,12 +16,12 @@ const RejectBorrowFormModal = ({ isOpen, setIsOpen, selectedBorrow, fetchBorrows
     setLoading(false);
     setError(null);
     setIsOpen(false);
-  }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true)
+      setLoading(true);
       await rejectBorrow(selectedBorrow.id);
       await fetchBorrows();
       handleClose();
@@ -24,7 +30,7 @@ const RejectBorrowFormModal = ({ isOpen, setIsOpen, selectedBorrow, fetchBorrows
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <FormModal

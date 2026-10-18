@@ -29,7 +29,10 @@ const Sidebar = () => {
         ))}
       </div>
       <footer className="absolute bottom-0 left-0 px-5 py-4">
-        <button onClick={handleLogout} className="flex items-center gap-2 cursor-pointer">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 cursor-pointer"
+        >
           <LogOut size={18} />
           <span>Sign out</span>
         </button>

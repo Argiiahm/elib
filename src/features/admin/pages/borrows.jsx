@@ -6,9 +6,9 @@ import useBorrows from '../../../hooks/useBorrows';
 import AcceptBorrowFormModal from '../components/forms/AcceptBorrowFormModal';
 import RejectBorrowFormModal from '../components/forms/RejectBorrowFormModal';
 
-
 const BorrowsAdminPage = () => {
-  const { borrows, search, setSearch, handleSearch, fetchBorrows } = useBorrows();
+  const { borrows, search, setSearch, handleSearch, fetchBorrows } =
+    useBorrows();
   const [selectedBorrow, setSelectedBorrow] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenReject, setIsOpenReject] = useState(false);
@@ -97,7 +97,7 @@ const BorrowsAdminPage = () => {
                 </td>
 
                 <td className="px-4 py-5">
-                  <div className='flex items-center gap-2'>
+                  <div className="flex items-center gap-2">
                     <button
                       onClick={() => {
                         (setSelectedBorrow(borrow), setIsOpen(true));

@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react';
 import { BookOpen, Hash, RefreshCcw, ShoppingBagIcon } from 'lucide-react';
 import { Link } from 'react-router';
-import { borrowBook } from '../services/borrow.service';
-import { useEffect, useState } from 'react';
 import useMyBorrows from '../features/user/hooks/useMyBorrows';
+import BorrowBookFormModal from '../features/user/components/form/BorrowBookFormModal';
 
 const CardDetailBook = ({ book }) => {
-  const { borrows, fetchBorrow } = useMyBorrows();
+  const { borrows, fetchMyBorrows } = useMyBorrows();
   const [borrowStatus, setBorrowStatus] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const excludedStatuses = ['rejected', 'returned', 'accepted'];
@@ -16,16 +17,6 @@ const CardDetailBook = ({ book }) => {
     );
     setBorrowStatus(borrow?.status);
   }, [borrows, book]);
-
-  const handleBorrow = async () => {
-    try {
-      const bookId = book.id;
-      await borrowBook(bookId);
-      await fetchBorrow();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleBtnBorrow = (borrowStatus) => {
     if (borrowStatus === 'pending') {
@@ -56,13 +47,19 @@ const CardDetailBook = ({ book }) => {
       return (
         <div className="mt-6">
           <button
-            onClick={() => handleBorrow()}
+            onClick={() => setIsOpen(true)}
             type="button"
             className="w-full md:w-auto flex items-center gap-2 cursor-pointer hover:opacity-80 transition duration-300 ease-in-out px-8 py-3 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800"
           >
             <ShoppingBagIcon />
             <span>Borrow Book</span>
           </button>
+          <BorrowBookFormModal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            selectedBook={book}
+            fetchBorrow={fetchMyBorrows}
+          />
         </div>
       );
     }

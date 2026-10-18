@@ -5,7 +5,7 @@ export const myBorrow = async () => {
     const response = await apiClient.get('/borrows');
     return response.data;
   } catch (error) {
-    throw new Error('Failed Fetch Borrow');
+    throw new Error(error?.response?.data?.message || 'Failed Fetch Borrows.');
   }
 };
 
@@ -15,7 +15,7 @@ export const borrowBook = async (bookId) => {
     const response = await apiClient.post('/borrow/book', { bookId });
     return response.data;
   } catch (error) {
-    throw new Error('Failed Request BorrowBook.');
+    throw new Error(error?.response?.data?.message || 'Failed Borrow Book.');
   }
 };
 
@@ -27,7 +27,7 @@ export const cancelBorrow = async (borrowId) => {
   } catch (error) {
     throw new Error(error?.response?.data?.message || 'Failed Cancel Borrow.');
   }
-}
+};
 
 // get all borrows admin
 export const getAllBorrows = async (params) => {

@@ -1,28 +1,38 @@
 import FormModal from '../../../../components/FormModal';
 import InputForm from '../../../../components/ui/input/index';
 import { useForm } from 'react-hook-form';
-import { zodResolver }  from "@hookform/resolvers/zod";
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { AcceptBorrowSchmea } from '../../../../schemas/borrow.schema';
 import { acceptBorrow } from '../../../../services/borrow.service';
 
-const AcceptBorrowFormModal = ({ isOpen, setIsOpen, selectedBorrow, fetchBorrows }) => {
+const AcceptBorrowFormModal = ({
+  isOpen,
+  setIsOpen,
+  selectedBorrow,
+  fetchBorrows,
+}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, reset,  formState: { errors } } = useForm({
-    resolver: zodResolver(AcceptBorrowSchmea)
-  });  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(AcceptBorrowSchmea),
+  });
 
   const handleClose = () => {
     setLoading(false);
     setError(null);
     setIsOpen(false);
     reset();
-  }
+  };
 
   const onSubmit = async (data) => {
     try {
-      setLoading(true)
+      setLoading(true);
       await acceptBorrow(selectedBorrow.id, data);
       await fetchBorrows();
       handleClose();
@@ -31,7 +41,7 @@ const AcceptBorrowFormModal = ({ isOpen, setIsOpen, selectedBorrow, fetchBorrows
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <FormModal
@@ -83,7 +93,12 @@ const AcceptBorrowFormModal = ({ isOpen, setIsOpen, selectedBorrow, fetchBorrows
         </div>
 
         <div className="space-y-2">
-          <InputForm error={errors.dueDate} {...register('dueDate')} name="dueDate" type="date" />
+          <InputForm
+            error={errors.dueDate}
+            {...register('dueDate')}
+            name="dueDate"
+            type="date"
+          />
         </div>
       </div>
       {error && <p className="text-red-500">{error}</p>}

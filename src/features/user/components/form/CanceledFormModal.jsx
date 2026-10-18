@@ -1,8 +1,13 @@
-import FormModal from "../../../../components/FormModal";
-import { cancelBorrow } from "../../../../services/borrow.service";
+import FormModal from '../../../../components/FormModal';
+import { cancelBorrow } from '../../../../services/borrow.service';
 
-const CanceledFormModal = ({ isOpen, setIsOpen, selectedBorrow, fetchBorrow, mode }) => {
-
+const CanceledFormModal = ({
+  isOpen,
+  setIsOpen,
+  selectedBorrow,
+  fetchBorrow,
+  mode,
+}) => {
   const handleCancel = async (e) => {
     e.preventDefault();
     try {
@@ -12,11 +17,18 @@ const CanceledFormModal = ({ isOpen, setIsOpen, selectedBorrow, fetchBorrow, mod
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
-    <FormModal onSubmit={handleCancel} title="Canceled Borrow" description={`You have canceled the borrow request for ${selectedBorrow?.book.title}.`} isOpen={isOpen} onClose={() => setIsOpen(false)} mode={mode} />
-  )
+    <FormModal
+      onSubmit={handleCancel}
+      title="Canceled Borrow"
+      description={`You have canceled the borrow request for ${selectedBorrow?.book.title}.`}
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      mode={mode}
+    />
+  );
 };
 
 export default CanceledFormModal;

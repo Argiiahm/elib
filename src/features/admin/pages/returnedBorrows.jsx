@@ -4,7 +4,7 @@ import AdminLayouts from '../components/AdminLayouts';
 
 const ReturnedBorrowsAdminPage = () => {
   const { borrows } = useBorrows();
-  
+
   const requestsBorrow = borrows.filter(
     (borrow) => borrow.status === 'returned'
   );

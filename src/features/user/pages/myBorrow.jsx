@@ -11,7 +11,6 @@ const MyBorrowPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCancelOpen, setIsCancelOpen] = useState(false);
 
-
   const myBorrows = borrows.filter(
     (borrow) => borrow.status === 'pending' || borrow.status === 'accepted'
   );
@@ -71,7 +70,9 @@ const MyBorrowPage = () => {
                 </td>
 
                 <td className="px-4 py-5">
-                  <span className={`font-bold ${borrow.status === 'pending' ? 'text-orange-500' : 'text-green-500'}`}>
+                  <span
+                    className={`font-bold ${borrow.status === 'pending' ? 'text-orange-500' : 'text-green-500'}`}
+                  >
                     {borrow.status}
                   </span>
                 </td>
@@ -80,7 +81,10 @@ const MyBorrowPage = () => {
                   {borrow.status === 'pending' ? (
                     <div>
                       <button
-                        onClick={() => { setSelectedBorrow(borrow); setIsCancelOpen(true) }}
+                        onClick={() => {
+                          setSelectedBorrow(borrow);
+                          setIsCancelOpen(true);
+                        }}
                         className="flex items-center gap-2 bg-red-500 text-white font-medium cursor-pointer px-6 py-2 rounded-md"
                       >
                         <Trash size={16} />
@@ -89,7 +93,13 @@ const MyBorrowPage = () => {
                     </div>
                   ) : (
                     <div>
-                      <button onClick={() => { setSelectedBorrow(borrow); setIsOpen(true) }} className="flex items-center gap-2 bg-orange-500 text-white font-medium cursor-pointer px-6 py-2 rounded-md">
+                      <button
+                        onClick={() => {
+                          setSelectedBorrow(borrow);
+                          setIsOpen(true);
+                        }}
+                        className="flex items-center gap-2 bg-orange-500 text-white font-medium cursor-pointer px-6 py-2 rounded-md"
+                      >
                         <RotateCcw size={16} />
                         <span>Return</span>
                       </button>
@@ -106,9 +116,18 @@ const MyBorrowPage = () => {
         </div>
       </div>
 
-      <ReturnedFormModal isOpen={isOpen} setIsOpen={setIsOpen} selectedBorrow={selectedBorrow} />
-      <CanceledFormModal isOpen={isCancelOpen} setIsOpen={setIsCancelOpen} selectedBorrow={selectedBorrow} mode="delete" fetchBorrow={fetchMyBorrows} />
-
+      <ReturnedFormModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        selectedBorrow={selectedBorrow}
+      />
+      <CanceledFormModal
+        isOpen={isCancelOpen}
+        setIsOpen={setIsCancelOpen}
+        selectedBorrow={selectedBorrow}
+        mode="delete"
+        fetchBorrow={fetchMyBorrows}
+      />
     </UserLayouts>
   );
 };
