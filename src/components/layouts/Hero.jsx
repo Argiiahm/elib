@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from 'lucide-react';
+import HeroDashboardPreview from './HeroDashboardPreview';
 
 const Hero = () => {
   const features = [
@@ -73,6 +74,9 @@ const Hero = () => {
             ))}
           </div>
         </div>
+      </section>
+      <section className="border-b border-gray-200">
+        <HeroDashboardPreview />
       </section>
     </>
   );
