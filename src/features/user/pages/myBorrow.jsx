@@ -1,16 +1,24 @@
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, Trash } from 'lucide-react';
 import UserLayouts from '../components/UserLayouts';
 import useMyBorrows from '../hooks/useMyBorrows';
+import ReturnedFormModal from '../components/form/ReturnedFormModal';
+import { useState } from 'react';
+import CanceledFormModal from '../components/form/CanceledFormModal';
 
 const MyBorrowPage = () => {
-  const { borrows } = useMyBorrows();
+  const { borrows, fetchMyBorrows } = useMyBorrows();
+  const [selectedBorrow, setSelectedBorrow] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCancelOpen, setIsCancelOpen] = useState(false);
+
+
   const myBorrows = borrows.filter(
     (borrow) => borrow.status === 'pending' || borrow.status === 'accepted'
   );
 
   return (
     <UserLayouts>
-      <div className="m-10 overflow-x-auto border border-gray-200">
+      <div className="overflow-x-auto border-b border-gray-200">
         <div className="border-b border-gray-200 px-6 py-5">
           <h1 className="text-2xl font-bold">Your Borrows Table</h1>
           <p className="mt-1 text-sm text-gray-500">
@@ -63,7 +71,7 @@ const MyBorrowPage = () => {
                 </td>
 
                 <td className="px-4 py-5">
-                  <span className="font-semibold text-orange-500">
+                  <span className={`font-bold ${borrow.status === 'pending' ? 'text-orange-500' : 'text-green-500'}`}>
                     {borrow.status}
                   </span>
                 </td>
@@ -72,16 +80,16 @@ const MyBorrowPage = () => {
                   {borrow.status === 'pending' ? (
                     <div>
                       <button
-                        disabled
-                        className="flex items-center gap-2 bg-gray-500 text-white font-medium cursor-no-drop px-6 py-2 rounded-md"
+                        onClick={() => { setSelectedBorrow(borrow); setIsCancelOpen(true) }}
+                        className="flex items-center gap-2 bg-red-500 text-white font-medium cursor-pointer px-6 py-2 rounded-md"
                       >
-                        <RotateCcw size={16} />
-                        <span>Process Request...</span>
+                        <Trash size={16} />
+                        <span>Cancel</span>
                       </button>
                     </div>
                   ) : (
                     <div>
-                      <button className="flex items-center gap-2 bg-orange-500 text-white font-medium cursor-pointer px-6 py-2 rounded-md">
+                      <button onClick={() => { setSelectedBorrow(borrow); setIsOpen(true) }} className="flex items-center gap-2 bg-orange-500 text-white font-medium cursor-pointer px-6 py-2 rounded-md">
                         <RotateCcw size={16} />
                         <span>Return</span>
                       </button>
@@ -97,6 +105,10 @@ const MyBorrowPage = () => {
           Showing 1 orders
         </div>
       </div>
+
+      <ReturnedFormModal isOpen={isOpen} setIsOpen={setIsOpen} selectedBorrow={selectedBorrow} />
+      <CanceledFormModal isOpen={isCancelOpen} setIsOpen={setIsCancelOpen} selectedBorrow={selectedBorrow} mode="delete" fetchBorrow={fetchMyBorrows} />
+
     </UserLayouts>
   );
 };

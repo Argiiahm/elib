@@ -9,6 +9,7 @@ export const myBorrow = async () => {
   }
 };
 
+// BorrowBook
 export const borrowBook = async (bookId) => {
   try {
     const response = await apiClient.post('/borrow/book', { bookId });
@@ -17,6 +18,16 @@ export const borrowBook = async (bookId) => {
     throw new Error('Failed Request BorrowBook.');
   }
 };
+
+// Cancel Borrow
+export const cancelBorrow = async (borrowId) => {
+  try {
+    const response = await apiClient.delete(`/borrow/book/${borrowId}/deleted`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error?.response?.data?.message || 'Failed Cancel Borrow.');
+  }
+}
 
 // get all borrows admin
 export const getAllBorrows = async (params) => {
