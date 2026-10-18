@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import FormModal from '../../../../components/FormModal';
 import { cancelBorrow } from '../../../../services/borrow.service';
 
@@ -8,14 +9,20 @@ const CanceledFormModal = ({
   fetchBorrow,
   mode,
 }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleCancel = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       await cancelBorrow(selectedBorrow?.id);
       await fetchBorrow();
       setIsOpen(false);
     } catch (error) {
-      console.error(error);
+      setError(error.message)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -27,7 +34,10 @@ const CanceledFormModal = ({
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
       mode={mode}
-    />
+      loading={loading}
+    >
+      {error && <div>{error}</div>}
+    </FormModal>
   );
 };
 

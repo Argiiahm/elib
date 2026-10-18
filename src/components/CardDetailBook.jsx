@@ -3,11 +3,15 @@ import { BookOpen, Hash, RefreshCcw, ShoppingBagIcon } from 'lucide-react';
 import { Link } from 'react-router';
 import useMyBorrows from '../features/user/hooks/useMyBorrows';
 import BorrowBookFormModal from '../features/user/components/form/BorrowBookFormModal';
+import CanceledFormModal from '../features/user/components/form/CanceledFormModal';
 
 const CardDetailBook = ({ book }) => {
   const { borrows, fetchMyBorrows } = useMyBorrows();
   const [borrowStatus, setBorrowStatus] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isCancelOpen, setIsCancelOpen] = useState(false);
+  const selectedBorrow = borrows?.find((borrow) => borrow.book.id === book?.id && borrow.status === 'pending');
+
 
   useEffect(() => {
     const excludedStatuses = ['rejected', 'returned', 'accepted'];
@@ -23,12 +27,20 @@ const CardDetailBook = ({ book }) => {
       return (
         <div className="mt-6">
           <button
+            onClick={() => setIsCancelOpen(true)}
             type="button"
-            className="w-full md:w-auto flex items-center gap-2  hover:opacity-80 transition duration-300 ease-in-out px-8 py-3 rounded-lg bg-gray-300 text-white text-sm font-medium cursor-no-drop"
+            className="w-full md:w-auto flex items-center gap-2  hover:opacity-80 transition duration-300 ease-in-out px-8 py-3 rounded-lg bg-red-500 text-white text-sm font-medium cursor-pointer"
           >
-            <ShoppingBagIcon />
-            <span>Process Request</span>
+            <RefreshCcw size={20} />
+            <span>Cancel</span>
           </button>
+          <CanceledFormModal
+            isOpen={isCancelOpen}
+            setIsOpen={setIsCancelOpen}
+            selectedBorrow={selectedBorrow}
+            mode="delete"
+            fetchBorrow={fetchMyBorrows}
+          />
         </div>
       );
     } else if (borrowStatus === 'accepted') {
