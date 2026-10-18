@@ -15,7 +15,7 @@ const BorrowBookFormModal = ({
     setError(null);
     setIsOpen(false);
     setLoading(false);
-  }
+  };
 
   const handleBorrow = async (e) => {
     e.preventDefault();

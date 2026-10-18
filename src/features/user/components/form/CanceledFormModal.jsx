@@ -20,7 +20,7 @@ const CanceledFormModal = ({
       await fetchBorrow();
       setIsOpen(false);
     } catch (error) {
-      setError(error.message)
+      setError(error.message);
     } finally {
       setLoading(false);
     }

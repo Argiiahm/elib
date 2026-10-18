@@ -10,8 +10,9 @@ const CardDetailBook = ({ book }) => {
   const [borrowStatus, setBorrowStatus] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isCancelOpen, setIsCancelOpen] = useState(false);
-  const selectedBorrow = borrows?.find((borrow) => borrow.book.id === book?.id && borrow.status === 'pending');
-
+  const selectedBorrow = borrows?.find(
+    (borrow) => borrow.book.id === book?.id && borrow.status === 'pending'
+  );
 
   useEffect(() => {
     const excludedStatuses = ['rejected', 'returned', 'accepted'];

@@ -91,6 +91,11 @@ const MyBorrowPage = () => {
                         <span>Cancel</span>
                       </button>
                     </div>
+                  ) : borrow.returnBooks?.length > 0 ? (
+                    <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-500 font-medium px-6 py-2 rounded-md cursor-no-drop">
+                      <RotateCcw size={16} />
+                      Waiting Confirmation
+                    </span>
                   ) : (
                     <div>
                       <button
@@ -120,6 +125,7 @@ const MyBorrowPage = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         selectedBorrow={selectedBorrow}
+        fetchBorrow={fetchMyBorrows}
       />
       <CanceledFormModal
         isOpen={isCancelOpen}
