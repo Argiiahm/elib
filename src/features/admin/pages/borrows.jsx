@@ -18,9 +18,16 @@ const BorrowsAdminPage = () => {
   );
 
   const stats = [
-    { title: 'Active Borrows', value: 5000 },
-    { title: 'Pending Today', value: 200 },
-    { title: 'Total Requests', value: 450 },
+    {
+      title: 'Active Borrows',
+      value: borrows.filter((borrow) => borrow.status === 'accepted').length,
+    },
+    {
+      title: 'Pending Today',
+      value: RequestBorrows.filter((borrow) => borrow.status === 'pending')
+        .length,
+    },
+    { title: 'Total Requests', value: RequestBorrows.length },
   ];
 
   return (

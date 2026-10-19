@@ -15,6 +15,7 @@ import AdminBooksPage from '../features/admin/pages/books';
 import AdminCategoriesPage from '../features/admin/pages/categories';
 import BorrowsAdminPage from '../features/admin/pages/borrows';
 import ReturnedBorrowsAdminPage from '../features/admin/pages/returnedBorrows';
+import UsersAdminPage from '../features/admin/pages/users';
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: '/elib/admin/borrow-returned',
         element: <ReturnedBorrowsAdminPage />,
+      },
+      {
+        path: '/elib/admin/users',
+        element: <UsersAdminPage />,
       },
     ],
   },

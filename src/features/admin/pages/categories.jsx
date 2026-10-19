@@ -6,9 +6,11 @@ import Button from '../../../components/ui/button/Button';
 import CategoryFormModal from '../components/forms/CategoryFormModal';
 import CategoryEditFormModal from '../components/forms/EditCategoryFormModal';
 import DeleteCategoryModal from '../components/forms/DeleteCategoryModal';
+import InputSearch from '../../../components/ui/input/search/InputSearch';
 
 const AdminCategoriesPage = () => {
-  const { categories, fetchData } = useCategories();
+  const { categories, search, setSearch, handleSearch, fetchData } =
+    useCategories();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -17,7 +19,7 @@ const AdminCategoriesPage = () => {
   return (
     <AdminLayouts>
       <div className="overflow-x-auto border-b border-gray-200">
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
+        <div className="grid grid-cols-2 border-b border-gray-200 px-6 py-5">
           <div className="flex items-center gap-2">
             <div>
               <h1 className="text-2xl font-bold">Data Categories Table</h1>
@@ -33,6 +35,12 @@ const AdminCategoriesPage = () => {
               <span>Add Category</span>
             </Button>
           </div>
+          <InputSearch
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            handleSearch={handleSearch}
+            placeholder="Search Books"
+          />
         </div>
 
         <table className="w-full text-sm">

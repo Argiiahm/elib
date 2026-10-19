@@ -58,7 +58,7 @@ const MyBorrowPage = () => {
                 </td>
 
                 <td className="px-4 py-5">
-                  <p className="font-semibold">{formatDate(borrow.dueDate)}</p>
+                  <p className="font-semibold">{formatDate(borrow.loanDate)}</p>
                 </td>
 
                 <td className="px-4 py-5">

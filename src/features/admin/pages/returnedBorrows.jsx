@@ -5,25 +5,44 @@ import AdminLayouts from '../components/AdminLayouts';
 import { useState } from 'react';
 import ConfirmReturnBookFormModal from '../components/forms/ConfirmReturnBookFormModal';
 import { formatDate } from '../../../utils/FormatDate';
+import { useSearchParams } from 'react-router';
+import { useCallback } from 'react';
+import InputSearch from '../../../components/ui/input/search/InputSearch';
 
 const ReturnedBorrowsAdminPage = () => {
   const [returnedBorrows, setReturnedBorrows] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get('search') || '');
+  const keyword = searchParams.get('keyword') || '';
   const [isOpen, setIsOpen] = useState(false);
   const [selectedReturn, setSelectedReturn] = useState(null);
 
-  const fetchReturnedBorrows = async () => {
-    const response = await getReturnedBorrows();
+  const fetchReturnedBorrows = useCallback(async () => {
+    const response = await getReturnedBorrows({ search: keyword });
     setReturnedBorrows(response.data.returnBook);
-  };
+  }, [keyword]);
 
   useEffect(() => {
     fetchReturnedBorrows();
-  }, []);
+  }, [fetchReturnedBorrows, keyword]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const value = search.trim();
+    if (value) {
+      setSearchParams({ keyword: value });
+    } else {
+      setSearchParams({});
+    }
+  };
 
   const stats = [
-    { title: 'Active Borrows', value: 5000 },
-    { title: 'Pending Today', value: 200 },
-    { title: 'Total Requests', value: 450 },
+    { title: 'Total Returned Borrows', value: returnedBorrows.length },
+    {
+      title: 'Total Requests',
+      value: returnedBorrows.filter((borrow) => borrow.status === 'accepted')
+        .length,
+    },
   ];
 
   return (
@@ -34,13 +53,20 @@ const ReturnedBorrowsAdminPage = () => {
         ))}
       </div>
       <div className="overflow-x-auto border-b border-gray-200">
-        <div className="border-b border-gray-200 px-6 py-5">
-          <h1 className="text-2xl font-bold">Returned Borrows Table</h1>
-          <p className="mt-1 text-sm text-gray-500">
-            Manage and view your recent Returned Borrows.
-          </p>
+        <div className="grid grid-cols-2 border-b border-gray-200 px-6 py-5">
+          <div>
+            <h1 className="text-2xl font-bold">Requests Returned Table</h1>
+            <p className="mt-1 text-sm text-gray-500">
+              Manage and view your recent returned requests.
+            </p>
+          </div>
+          <InputSearch
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            handleSearch={handleSearch}
+            placeholder="Search fullname, email, more..."
+          />
         </div>
-
         <table className="w-full table-fixed text-sm">
           <thead className="bg-slate-100 text-xs uppercase tracking-wider text-gray-600">
             <tr>

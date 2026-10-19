@@ -43,7 +43,7 @@ const CategoryDetailPage = () => {
           <InputSearch placeholder="Search title, author, and more." />
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {bookCategory.length > 0 &&
+          {bookCategory.length > 0 ? (
             bookCategory.map((book) => (
               <Link to={`/elib/books/${book.id}`} key={book.id}>
                 <CardBook>
@@ -55,7 +55,12 @@ const CategoryDetailPage = () => {
                   />
                 </CardBook>
               </Link>
-            ))}
+            ))
+          ) : (
+            <div className="flex justify-center items-center">
+              <p>No books found.</p>
+            </div>
+          )}
         </div>
       </div>
     </UserLayouts>

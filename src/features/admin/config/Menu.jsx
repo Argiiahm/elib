@@ -1,7 +1,8 @@
-import { Book, Hash, History, LayoutGridCircles } from 'lucide-react';
+import { Book, Hash, History, LayoutGridCircles, User } from 'lucide-react';
 
 const Menus = [
   {
+    id: 'dashboard',
     // label: 'Dashboard',
     items: [
       {
@@ -12,6 +13,7 @@ const Menus = [
     ],
   },
   {
+    id: 'data-book',
     label: 'DATA BOOK',
     items: [
       { title: 'Books', icon: <Book size={18} />, path: '/elib/admin/books' },
@@ -23,6 +25,7 @@ const Menus = [
     ],
   },
   {
+    id: 'borrow-management',
     label: 'Borrow Management',
     items: [
       {
@@ -34,6 +37,17 @@ const Menus = [
         title: 'Request Returned',
         icon: <History size={18} />,
         path: '/elib/admin/borrow-returned',
+      },
+    ],
+  },
+  {
+    id: 'user-management',
+    label: 'User Management',
+    items: [
+      {
+        title: 'Users',
+        icon: <User size={18} />,
+        path: '/elib/admin/users',
       },
     ],
   },

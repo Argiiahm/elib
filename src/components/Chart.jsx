@@ -3,15 +3,15 @@ import ReactApexChart from 'react-apexcharts';
 const Chart = () => {
   const series = [
     {
-      name: 'Price',
+      name: 'total borrows',
       data: [
-        { x: new Date('2025-11-23').getTime(), y: 8200 },
-        { x: new Date('2025-11-24').getTime(), y: 8400 },
-        { x: new Date('2025-11-25').getTime(), y: 8300 },
-        { x: new Date('2025-11-26').getTime(), y: 8700 },
-        { x: new Date('2025-11-27').getTime(), y: 8600 },
-        { x: new Date('2025-11-28').getTime(), y: 9100 },
-        { x: new Date('2025-11-29').getTime(), y: 9340 },
+        { x: new Date('2025-11-23').getTime(), y: 2 },
+        { x: new Date('2025-11-24').getTime(), y: 3 },
+        { x: new Date('2025-11-25').getTime(), y: 4 },
+        { x: new Date('2025-11-26').getTime(), y: 5 },
+        { x: new Date('2025-11-27').getTime(), y: 6 },
+        { x: new Date('2025-11-28').getTime(), y: 7 },
+        { x: new Date('2025-11-29').getTime(), y: 8 },
       ],
     },
   ];

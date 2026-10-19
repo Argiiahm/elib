@@ -34,7 +34,7 @@ const AdminBooksPage = () => {
         ))}
       </div>
       <div className="overflow-x-auto border-b border-gray-200">
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
+        <div className="grid grid-cols-2 border-b border-gray-200 px-6 py-5">
           <div className="flex items-center gap-2">
             <div>
               <h1 className="text-2xl font-bold">Data Books Table</h1>
@@ -66,7 +66,7 @@ const AdminBooksPage = () => {
               <th className="px-4 py-4 text-left">Realese Date</th>
               <th className="px-4 py-4 text-left">Synopsis</th>
               <th className="px-4 py-4 text-left">Stock</th>
-              <th className="px-4 py-4 text-left">Action</th>
+              <th className="px-4 py-4 text-center">Action</th>
             </tr>
           </thead>
 

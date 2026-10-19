@@ -11,9 +11,9 @@ export const returnBook = async (borrowId) => {
 };
 
 // get all returned borrows (ADMIN)
-export const getReturnedBorrows = async () => {
+export const getReturnedBorrows = async (params) => {
   try {
-    const response = await apiClient.get(`/admin/return/book`);
+    const response = await apiClient.get(`/admin/return/book`, { params });
     return response.data;
   } catch (error) {
     throw new Error(
