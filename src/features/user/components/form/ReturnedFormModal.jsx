@@ -31,6 +31,7 @@ const ReturnedFormModal = ({
       title="Returned Book"
       description={`Returned a book ${selectedBorrow?.book.title}`}
       isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
       loading={loading}
     >
       <div>{error && <div>{error}</div>}</div>

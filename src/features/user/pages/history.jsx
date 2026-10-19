@@ -1,3 +1,5 @@
+import { formatDate } from '../../../utils/FormatDate';
+import { formatRupiah } from '../../../utils/FormatRupiah';
 import UserLayouts from '../components/UserLayouts';
 import useMyBorrows from '../hooks/useMyBorrows';
 
@@ -23,6 +25,7 @@ const HistoryPage = () => {
               <th className="px-4 py-4 text-left">Book</th>
               <th className="px-4 py-4 text-left">Borrow Date</th>
               <th className="px-4 py-4 text-left">Libary Location</th>
+              <th className="px-4 py-4 text-left">Detail Returned</th>
               <th className="px-4 py-4 text-left">Status</th>
             </tr>
           </thead>
@@ -35,7 +38,7 @@ const HistoryPage = () => {
                     {borrow.id.substring(0, 20)}...
                   </p>
                   <p className="mt-1 text-xs text-gray-400">
-                    Loan Date · {new Date(borrow.loanDate).toLocaleDateString()}
+                    Loan Date · {formatDate(borrow.loanDate)}
                   </p>
                 </td>
 
@@ -48,7 +51,7 @@ const HistoryPage = () => {
 
                 <td className="px-4 py-5">
                   <p className="font-semibold">
-                    {new Date(borrow.loanDate).toLocaleDateString()}
+                    {formatDate(borrow.dueDate)}
                   </p>
                 </td>
 
@@ -57,6 +60,46 @@ const HistoryPage = () => {
                   <p className="mt-1 text-xs text-gray-400">
                     Htpps://maps.com..
                   </p>
+                </td>
+
+                <td className="px-4 py-5">
+                  <div className="space-y-4">
+                    {borrow.returnBooks?.map((returnBook) => {
+                      const lateDays = Math.max(
+                        0,
+                        Math.floor(
+                          (new Date(returnBook.returnDate) -
+                            new Date(borrow.dueDate)) /
+                            (1000 * 60 * 60 * 24)
+                        )
+                      );
+
+                      return (
+                        <div key={returnBook.id}>
+                          <p className="text-base font-semibold text-gray-900">
+                            {formatRupiah(returnBook.fineAmount)}
+                          </p>
+
+                          <p className="mt-1 text-sm text-gray-500">
+                            Returned on{' '}
+                            <span className="text-gray-700">
+                              {formatDate(returnBook.returnDate)}
+                            </span>
+                          </p>
+
+                          <p
+                            className={`mt-1 text-xs ${
+                              lateDays > 0 ? 'text-red-500' : 'text-emerald-600'
+                            }`}
+                          >
+                            {lateDays > 0
+                              ? `${lateDays} day${lateDays > 1 ? 's' : ''} late`
+                              : 'Returned on time'}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </td>
 
                 <td className="px-4 py-5">

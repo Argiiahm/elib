@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import FormModal from '../../../../components/FormModal';
 import { confirmReturnBook } from '../../../../services/returned.service';
+import { formatDate } from '../../../../utils/FormatDate';
+import { formatRupiah } from '../../../../utils/FormatRupiah';
 
 const ConfirmReturnBookFormModal = ({
   isOpen,
@@ -59,14 +61,7 @@ const ConfirmReturnBookFormModal = ({
             <span className="text-sm text-gray-500">Borrow Date</span>
             <span className="text-right text-sm text-gray-700">
               {selectedReturn?.borrow.loanDate
-                ? new Date(selectedReturn.borrow.loanDate).toLocaleDateString(
-                    'id-ID',
-                    {
-                      day: '2-digit',
-                      month: 'short',
-                      year: 'numeric',
-                    }
-                  )
+                ? formatDate(selectedReturn.borrow.loanDate)
                 : '-'}
             </span>
           </div>
@@ -74,14 +69,7 @@ const ConfirmReturnBookFormModal = ({
             <span className="text-sm text-gray-500">Due Date</span>
             <span className="text-right text-sm text-gray-700">
               {selectedReturn?.borrow.dueDate
-                ? new Date(selectedReturn.borrow.dueDate).toLocaleDateString(
-                    'id-ID',
-                    {
-                      day: '2-digit',
-                      month: 'short',
-                      year: 'numeric',
-                    }
-                  )
+                ? formatDate(selectedReturn.borrow.dueDate)
                 : '-'}
             </span>
           </div>
@@ -103,7 +91,7 @@ const ConfirmReturnBookFormModal = ({
             <div className="space-x-2">
               <span className=" text-gray-500">Total Fine:</span>
               <span className="font-semibold">
-                {selectedReturn?.fineAmount}
+                {formatRupiah(selectedReturn?.fineAmount)}
               </span>
             </div>
           </div>

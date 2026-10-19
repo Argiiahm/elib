@@ -4,6 +4,7 @@ import { getReturnedBorrows } from '../../../services/returned.service';
 import AdminLayouts from '../components/AdminLayouts';
 import { useState } from 'react';
 import ConfirmReturnBookFormModal from '../components/forms/ConfirmReturnBookFormModal';
+import { formatDate } from '../../../utils/FormatDate';
 
 const ReturnedBorrowsAdminPage = () => {
   const [returnedBorrows, setReturnedBorrows] = useState([]);
@@ -64,11 +65,11 @@ const ReturnedBorrowsAdminPage = () => {
                     </p>
                     <p className="mt-1 text-xs text-gray-400">
                       Loan Date ·{' '}
-                      {new Date(borrow.borrow.loanDate).toLocaleDateString()}
+                      {formatDate(borrow.borrow.loanDate)}
                     </p>
                     <p className="mt-1 text-xs text-gray-400">
                       Due Date ·{' '}
-                      {new Date(borrow.borrow.dueDate).toLocaleDateString()}
+                      {formatDate(borrow.borrow.dueDate)}
                     </p>
                   </td>
 
@@ -83,7 +84,7 @@ const ReturnedBorrowsAdminPage = () => {
 
                   <td className="px-4 py-5">
                     <p className="font-semibold">
-                      {new Date(borrow.returnDate).toLocaleDateString()}
+                      {formatDate(borrow.returnDate)}
                     </p>
                   </td>
 

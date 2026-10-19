@@ -4,6 +4,7 @@ import useMyBorrows from '../hooks/useMyBorrows';
 import ReturnedFormModal from '../components/form/ReturnedFormModal';
 import { useState } from 'react';
 import CanceledFormModal from '../components/form/CanceledFormModal';
+import { formatDate } from '../../../utils/FormatDate';
 
 const MyBorrowPage = () => {
   const { borrows, fetchMyBorrows } = useMyBorrows();
@@ -45,7 +46,7 @@ const MyBorrowPage = () => {
                     {borrow.id.substring(0, 20)}...
                   </p>
                   <p className="mt-1 text-xs text-gray-400">
-                    Loan Date · {new Date(borrow.loanDate).toLocaleDateString()}
+                    Loan Date · {formatDate(borrow.loanDate)}
                   </p>
                 </td>
 
@@ -58,7 +59,7 @@ const MyBorrowPage = () => {
 
                 <td className="px-4 py-5">
                   <p className="font-semibold">
-                    {new Date(borrow.loanDate).toLocaleDateString()}
+                    {formatDate(borrow.dueDate)}
                   </p>
                 </td>
 

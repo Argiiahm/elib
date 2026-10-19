@@ -8,6 +8,7 @@ import { useState } from 'react';
 import BookFormModal from '../components/forms/BookFormModal';
 import EditBookFormModal from '../components/forms/EditBookFormModal';
 import DeleteBookModal from '../components/forms/DeleteBookModal';
+import { formatDate } from '../../../utils/FormatDate';
 
 const AdminBooksPage = () => {
   const { books, search, setSearch, handleSearch, fetchBooks } = useBooks();
@@ -88,7 +89,7 @@ const AdminBooksPage = () => {
 
                 <td className="px-4 py-5">
                   <p className="font-semibold">
-                    {new Date(book.publicationYear).toLocaleDateString()}
+                    {formatDate(book.publicationYear)}
                   </p>
                 </td>
 
