@@ -4,7 +4,8 @@ import useCategories from '../../../hooks/useCategories';
 import InputSearch from '../../../components/ui/input/search/InputSearch';
 
 const CategoriesPage = () => {
-  const { categories } = useCategories();
+  const { categories, search, setSearch, handleSearch, loading } =
+    useCategories();
   return (
     <UserLayouts>
       <div className="m-10">
@@ -17,12 +18,23 @@ const CategoriesPage = () => {
           ones that match your interests.
         </p>
         <div className="mt-10">
-          <InputSearch placeholder="Search categoryName, more" />
+          <InputSearch
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            handleSearch={handleSearch}
+            placeholder="Search categoryName, more"
+          />
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {categories.map((category) => (
-            <CategoryCard key={category.id} category={category} />
-          ))}
+          {loading ? (
+            <p>Loading...</p>
+          ) : categories.length === 0 ? (
+            <p>No categories found.</p>
+          ) : (
+            categories.map((category) => (
+              <CategoryCard key={category.id} category={category} />
+            ))
+          )}
         </div>
       </div>
     </UserLayouts>

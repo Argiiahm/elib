@@ -1,8 +1,8 @@
 import { apiClient } from '../api/axiosConfig';
 
-export const getCategories = async () => {
+export const getCategories = async (params, signal) => {
   try {
-    const response = await apiClient.get('/categories');
+    const response = await apiClient.get('/categories', { params, signal });
     return response.data;
   } catch (error) {
     throw new Error(

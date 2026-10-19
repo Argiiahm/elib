@@ -29,30 +29,40 @@ const BooksPage = () => {
           />
           <div className="mt-2 flex flex-wrap items-center gap-2">
             {categories.slice(0, 8).map((category) => (
-              <button className="px-4 py-1 cursor-pointer text-gray-500 font-medium flex items-center gap-1 hover:text-gray-400 transition duration-300 ease-in-out">
+              <Link
+                to={`/elib/categories/${category.id}`}
+                className="px-4 py-1 cursor-pointer text-gray-500 font-medium flex items-center gap-1 hover:text-gray-400 transition duration-300 ease-in-out"
+              >
                 <Hash size={16} />
                 <span>{category.name}</span>
-              </button>
+              </Link>
             ))}
-            <Link className="font-medium" to="/elib/categories">
-              See All
-            </Link>
+            {categories.length > 5 && (
+              <Link className="font-medium" to="/elib/categories">
+                See All
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {loading && <div>Please Wait...</div>}
-          {books.map((book) => (
-            <Link to={`/elib/books/${book.id}`} key={book.id}>
-              <CardBook>
-                <CardBook.Header image={book.coverBook} />
-                <CardBook.Body
-                  title={book.title}
-                  author={book.author}
-                  synopsis={book.synopsis}
-                />
-              </CardBook>
-            </Link>
-          ))}
+          {loading ? (
+            <div>Loading...</div>
+          ) : books.length === 0 ? (
+            <div>No books found.</div>
+          ) : (
+            books.map((book) => (
+              <Link to={`/elib/books/${book.id}`} key={book.id}>
+                <CardBook>
+                  <CardBook.Header image={book.coverBook} />
+                  <CardBook.Body
+                    title={book.title}
+                    author={book.author}
+                    synopsis={book.synopsis}
+                  />
+                </CardBook>
+              </Link>
+            ))
+          )}
         </div>
       </div>
     </UserLayouts>

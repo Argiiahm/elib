@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import UserLayouts from '../components/UserLayouts';
 import DashboardStats from '../../../components/DashboardStats';
 import AttedanceBorrowBook from '../components/AttedanceBorrowBook';
@@ -6,17 +7,26 @@ import CardBook from '../../../components/CardBook';
 import useBooks from '../../../hooks/useBooks';
 import useMyBorrows from '../hooks/useMyBorrows';
 import useCategories from '../../../hooks/useCategories';
-import { Link } from 'react-router';
 
 const UserDashboardPage = () => {
   const { books } = useBooks();
   const { borrows } = useMyBorrows();
   const { categories } = useCategories();
-  const activeBooks = borrows.filter((borrowBook) => borrowBook.status === 'accepted');
+  const activeBooks = borrows.filter(
+    (borrowBook) => borrowBook.status === 'accepted'
+  );
   const stats = [
-    { title: 'Pending Borrow', value: borrows.filter((borrowBook) => borrowBook.status === 'pending').length },
+    {
+      title: 'Pending Borrow',
+      value: borrows.filter((borrowBook) => borrowBook.status === 'pending')
+        .length,
+    },
     { title: 'Active Books', value: activeBooks.length },
-    { title: 'Returning Books', value: borrows.filter((borrowBook) => borrowBook.status === 'returning').length },
+    {
+      title: 'Returning Books',
+      value: borrows.filter((borrowBook) => borrowBook.status === 'returning')
+        .length,
+    },
     { title: 'Borrow All Times', value: borrows.length },
   ];
 

@@ -37,7 +37,7 @@ const AttedanceBorrowBook = ({ book }) => {
                     (new Date(book.dueDate).getTime() - Date.now()) /
                       (1000 * 60 * 60 * 24)
                   )
-                )}{" "}
+                )}{' '}
                 Days left
               </span>
             </div>

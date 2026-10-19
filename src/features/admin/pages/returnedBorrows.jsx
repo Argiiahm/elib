@@ -64,12 +64,10 @@ const ReturnedBorrowsAdminPage = () => {
                       {borrow.borrowId.substring(0, 20)}...
                     </p>
                     <p className="mt-1 text-xs text-gray-400">
-                      Loan Date ·{' '}
-                      {formatDate(borrow.borrow.loanDate)}
+                      Loan Date · {formatDate(borrow.borrow.loanDate)}
                     </p>
                     <p className="mt-1 text-xs text-gray-400">
-                      Due Date ·{' '}
-                      {formatDate(borrow.borrow.dueDate)}
+                      Due Date · {formatDate(borrow.borrow.dueDate)}
                     </p>
                   </td>
 

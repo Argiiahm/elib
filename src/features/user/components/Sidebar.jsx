@@ -23,7 +23,7 @@ const Sidebar = () => {
             alt="logo"
           />
         </div>
-        <span className="font-medium">@{ user.fullname }</span>
+        <span className="font-medium">@{user.fullname}</span>
       </div>
       <div>
         {Menus.map((menu) => (
