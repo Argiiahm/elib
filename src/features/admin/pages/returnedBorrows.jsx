@@ -1,13 +1,23 @@
+import { useEffect } from 'react';
 import DashboardStats from '../../../components/DashboardStats';
-import useBorrows from '../../../hooks/useBorrows';
+import { getReturnedBorrows } from '../../../services/returned.service';
 import AdminLayouts from '../components/AdminLayouts';
+import { useState } from 'react';
+import ConfirmReturnBookFormModal from '../components/forms/ConfirmReturnBookFormModal';
 
 const ReturnedBorrowsAdminPage = () => {
-  const { borrows } = useBorrows();
+  const [returnedBorrows, setReturnedBorrows] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedReturn, setSelectedReturn] = useState(null);
 
-  const requestsBorrow = borrows.filter(
-    (borrow) => borrow.status === 'returned'
-  );
+  const fetchReturnedBorrows = async () => {
+    const response = await getReturnedBorrows();
+    setReturnedBorrows(response.data.returnBook);
+  };
+
+  useEffect(() => {
+    fetchReturnedBorrows();
+  }, []);
 
   const stats = [
     { title: 'Active Borrows', value: 5000 },
@@ -34,61 +44,87 @@ const ReturnedBorrowsAdminPage = () => {
           <thead className="bg-slate-100 text-xs uppercase tracking-wider text-gray-600">
             <tr>
               <th className="px-4 py-4 text-left">Borrow ID</th>
-              <th className="px-4 py-4 text-left">Book</th>
-              <th className="px-4 py-4 text-left">Borrow Date</th>
-              <th className="px-4 py-4 text-left">Libary Location</th>
+              <th className="px-4 py-4 text-left">User</th>
+              <th className="px-4 py-4 text-left">Return Date</th>
               <th className="px-4 py-4 text-left">Status</th>
+              <th className="px-4 py-4 text-left">Days Late</th>
+              <th className="px-4 py-4 text-left">Fine Amount</th>
               <th className="px-4 py-4 text-left">Action</th>
             </tr>
           </thead>
 
           <tbody className="divide-y divide-gray-200">
-            {requestsBorrow.map((borrow) => (
-              <tr className="transition-colors hover:bg-gray-50">
-                <td className="px-4 py-5">
-                  <p className="whitespace-nowrap font-semibold">
-                    {borrow.id.substring(0, 20)}...
-                  </p>
-                  <p className="mt-1 text-xs text-gray-400">
-                    Loan Date · {new Date(borrow.loanDate).toLocaleDateString()}
-                  </p>
-                </td>
+            {returnedBorrows
+              .filter((item) => item.borrow.status === 'accepted')
+              .map((borrow) => (
+                <tr className="transition-colors hover:bg-gray-50">
+                  <td className="px-4 py-5">
+                    <p className="whitespace-nowrap font-semibold">
+                      {borrow.borrowId.substring(0, 20)}...
+                    </p>
+                    <p className="mt-1 text-xs text-gray-400">
+                      Loan Date ·{' '}
+                      {new Date(borrow.borrow.loanDate).toLocaleDateString()}
+                    </p>
+                    <p className="mt-1 text-xs text-gray-400">
+                      Due Date ·{' '}
+                      {new Date(borrow.borrow.dueDate).toLocaleDateString()}
+                    </p>
+                  </td>
 
-                <td className="px-4 py-5">
-                  <p className="font-semibold">{borrow.book.title}</p>
-                  <p className="text-xs text-gray-400">
-                    {borrow.book.bookCode}
-                  </p>
-                </td>
+                  <td className="px-4 py-5">
+                    <p className="font-semibold">
+                      {borrow.borrow.user.fullname}
+                    </p>
+                    <p className="text-xs text-gray-400">
+                      {borrow.borrow.user.email}
+                    </p>
+                  </td>
 
-                <td className="px-4 py-5">
-                  <p className="font-semibold">
-                    {new Date(borrow.loanDate).toLocaleDateString()}
-                  </p>
-                </td>
+                  <td className="px-4 py-5">
+                    <p className="font-semibold">
+                      {new Date(borrow.returnDate).toLocaleDateString()}
+                    </p>
+                  </td>
 
-                <td className="px-4 py-5">
-                  <p className="font-semibold">Wanareja</p>
-                  <p className="mt-1 text-xs text-gray-400">
-                    Htpps://maps.com..
-                  </p>
-                </td>
+                  <td className="px-4 py-5">
+                    <span
+                      className={`${borrow.status === 'duedate' ? 'text-red-500' : ''} font-bold capitalize`}
+                    >
+                      {borrow.status}
+                    </span>
+                  </td>
 
-                <td className="px-4 py-5">
-                  <span className="font-semibold text-orange-500">
-                    {borrow.status}
-                  </span>
-                </td>
+                  <td className="px-4 py-5">
+                    <span className="font-semibold">
+                      {Math.max(
+                        0,
+                        Math.floor(
+                          (new Date(borrow.returnDate) -
+                            new Date(borrow.borrow.dueDate)) /
+                            (1000 * 60 * 60 * 24)
+                        )
+                      )}{' '}
+                      Day
+                    </span>
+                  </td>
 
-                <td className="px-4 py-5">
-                  <div>
-                    <button className="flex items-center gap-2 bg-gray-500 text-white font-medium cursor-pointer px-6 py-2 rounded-md">
-                      <span>Returned</span>
+                  <td className="px-4 py-5">
+                    <span className="font-semibold">{borrow.fineAmount}</span>
+                  </td>
+
+                  <td className="px-4 py-5">
+                    <button
+                      onClick={() => {
+                        (setSelectedReturn(borrow), setIsOpen(true));
+                      }}
+                      className="flex items-center gap-2 bg-orange-500 text-white font-medium cursor-pointer px-6 py-2 rounded-md"
+                    >
+                      <span>Confirmed</span>
                     </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
 
@@ -96,6 +132,13 @@ const ReturnedBorrowsAdminPage = () => {
           Showing 1 orders
         </div>
       </div>
+
+      <ConfirmReturnBookFormModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        selectedReturn={selectedReturn}
+        fetchReturnedBorrows={fetchReturnedBorrows}
+      />
     </AdminLayouts>
   );
 };

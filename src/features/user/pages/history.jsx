@@ -8,8 +8,8 @@ const HistoryPage = () => {
   );
   return (
     <UserLayouts>
-      <div className="m-10 overflow-x-auto border border-gray-200">
-        <div className="border-b border-gray-200 px-6 py-5">
+      <div className="overflow-x-auto border-b border-gray-200">
+        <div className="px-6 py-5">
           <h1 className="text-2xl font-bold">Your Histories Table</h1>
           <p className="mt-1 text-sm text-gray-500">
             Manage and view your histories.
