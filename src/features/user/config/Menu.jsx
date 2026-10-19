@@ -2,7 +2,8 @@ import { Book, Hash, History, LayoutGridCircles } from 'lucide-react';
 
 const Menus = [
   {
-    // label: 'Dashboard',
+    id: 'dashboard',
+    label: 'Dashboard',
     items: [
       {
         title: 'Dashboard',
@@ -12,6 +13,7 @@ const Menus = [
     ],
   },
   {
+    id: 'books',
     label: 'Books',
     items: [
       { title: 'Books', icon: <Book size={18} />, path: '/elib/books' },
@@ -23,6 +25,7 @@ const Menus = [
     ],
   },
   {
+    id: 'book-management',
     label: 'Book Management',
     items: [
       {

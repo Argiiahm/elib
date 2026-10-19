@@ -2,9 +2,11 @@ import { LogOut } from 'lucide-react';
 import MenuSidebar from '../../../components/MenuSidebar';
 import Menus from '../config/Menu';
 import useLogout from '../../../hooks/useLogout';
+import { useAuth } from '../../../context/AuthContext';
 
 const Sidebar = () => {
   const { handleLogout } = useLogout();
+  const { user } = useAuth();
 
   return (
     <aside className="fixed left-0 top-0 hidden h-screen w-64 shrink-0 border-r border-gray-200 bg-white md:block">
@@ -17,15 +19,15 @@ const Sidebar = () => {
             loading="lazy"
             draggable={false}
             className="pt-4"
-            src="https://api.dicebear.com/10.x/lorelei/svg?seed=Argiiahm"
+            src={`https://api.dicebear.com/10.x/lorelei/svg?seed=${user.fullname}`}
             alt="logo"
           />
         </div>
-        <span className="font-medium">@Argiiahm</span>
+        <span className="font-medium">@{ user.fullname }</span>
       </div>
       <div>
         {Menus.map((menu) => (
-          <MenuSidebar key={menu.label} label={menu.label} items={menu.items} />
+          <MenuSidebar key={menu.id} label={menu.label} items={menu.items} />
         ))}
       </div>
       <footer className="absolute bottom-0 left-0 px-5 py-4">

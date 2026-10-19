@@ -3,16 +3,21 @@ import DashboardStats from '../../../components/DashboardStats';
 import AttedanceBorrowBook from '../components/AttedanceBorrowBook';
 import CategoryCard from '../../../components/CategoryCard';
 import CardBook from '../../../components/CardBook';
-import Books from '../../../data/books';
-import categories from '../../../data/categories';
+import useBooks from '../../../hooks/useBooks';
+import useMyBorrows from '../hooks/useMyBorrows';
+import useCategories from '../../../hooks/useCategories';
+import { Link } from 'react-router';
 
 const UserDashboardPage = () => {
+  const { books } = useBooks();
+  const { borrows } = useMyBorrows();
+  const { categories } = useCategories();
+  const activeBooks = borrows.filter((borrowBook) => borrowBook.status === 'accepted');
   const stats = [
-    { title: 'Pending Borrow', value: 2 },
-    { title: 'Active Books', value: 32 },
-    { title: 'Returning Books', value: 32 },
-    { title: 'Borrow All Times', value: 27 },
-    { title: 'Your Fine', value: 'Rp. 20.000' },
+    { title: 'Pending Borrow', value: borrows.filter((borrowBook) => borrowBook.status === 'pending').length },
+    { title: 'Active Books', value: activeBooks.length },
+    { title: 'Returning Books', value: borrows.filter((borrowBook) => borrowBook.status === 'returning').length },
+    { title: 'Borrow All Times', value: borrows.length },
   ];
 
   return (
@@ -20,7 +25,7 @@ const UserDashboardPage = () => {
       {/* Stats */}
       <div className="flex items-center border-b border-gray-200">
         {stats.map((stat) => (
-          <DashboardStats stat={stat} />
+          <DashboardStats key={stat.title} stat={stat} />
         ))}
       </div>
       {/* Main Content Dashboard */}
@@ -30,8 +35,8 @@ const UserDashboardPage = () => {
           Your Active Books
         </h1>
         <div className="flex flex-wrap items-center gap-2">
-          {Books.slice(0, 3).map((book) => (
-            <AttedanceBorrowBook book={book} />
+          {activeBooks.slice(0, 3).map((book) => (
+            <AttedanceBorrowBook key={book.id} book={book} />
           ))}
         </div>
 
@@ -39,24 +44,26 @@ const UserDashboardPage = () => {
         <h1 className="text-2xl text-gray-500 font-medium">Top Categories</h1>
         <div className="flex flex-wrap items-center gap-2">
           {categories.slice(0, 5).map((category) => (
-            <CategoryCard category={category} />
+            <CategoryCard key={category.id} category={category} />
           ))}
         </div>
 
         {/* Recomended Books */}
         <h1 className="text-2xl text-gray-500 font-medium">
-          Recommended Books
+          Recommended Top Books
         </h1>
         <div className="flex flex-wrap items-center gap-2">
-          {Books.map((book) => (
-            <CardBook>
-              <CardBook.Header image={book.image} />
-              <CardBook.Body
-                title={book.title}
-                author={book.author}
-                synopsis={book.synopsis}
-              />
-            </CardBook>
+          {books.slice(0, 5).map((book) => (
+            <Link to={`/elib/books/${book.id}`}>
+              <CardBook key={book.id}>
+                <CardBook.Header image={book.coverBook} />
+                <CardBook.Body
+                  title={book.title}
+                  author={book.author}
+                  synopsis={book.synopsis}
+                />
+              </CardBook>
+            </Link>
           ))}
         </div>
       </div>
