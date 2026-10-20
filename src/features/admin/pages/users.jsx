@@ -19,8 +19,14 @@ const UsersAdminPage = () => {
 
   const stats = [
     { title: 'Total Users', value: users.length },
-    { title: 'Role User', value: users.filter(user => user.role === 'user').length },
-    { title: 'Role Admin', value: users.filter(user => user.role === 'admin').length },
+    {
+      title: 'Role User',
+      value: users.filter((user) => user.role === 'user').length,
+    },
+    {
+      title: 'Role Admin',
+      value: users.filter((user) => user.role === 'admin').length,
+    },
   ];
 
   return (
@@ -97,11 +103,21 @@ const UsersAdminPage = () => {
 
                 <td className="px-4 py-5">
                   <div className="flex items-center justify-center gap-2">
-                    <button onClick={() => { setSelectedUser(user), setIsDeleteOpen(true) }} className="rounded-md bg-red-400 p-2 text-white transition hover:bg-red-500">
+                    <button
+                      onClick={() => {
+                        (setSelectedUser(user), setIsDeleteOpen(true));
+                      }}
+                      className="rounded-md bg-red-400 p-2 text-white transition hover:bg-red-500"
+                    >
                       <Trash size={18} />
                     </button>
 
-                    <button onClick={() => { setSelectedUser(user), setIsEditOpen(true) }} className="rounded-md bg-orange-400 p-2 text-white transition hover:bg-orange-500">
+                    <button
+                      onClick={() => {
+                        (setSelectedUser(user), setIsEditOpen(true));
+                      }}
+                      className="rounded-md bg-orange-400 p-2 text-white transition hover:bg-orange-500"
+                    >
                       <Pen size={18} />
                     </button>
                   </div>
@@ -135,7 +151,6 @@ const UsersAdminPage = () => {
         selectedUser={selectedUser}
         fetchUsers={fetchUsers}
       />
-
     </AdminLayouts>
   );
 };

@@ -25,7 +25,7 @@ const EditUserFormModal = ({ isOpen, setIsOpen, selectedUser, fetchUsers }) => {
       email: selectedUser.email,
       no_telp: selectedUser.no_telp,
       role: selectedUser.role,
-    }
+    },
   });
 
   const handleClose = () => {

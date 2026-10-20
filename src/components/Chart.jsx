@@ -1,18 +1,28 @@
 import ReactApexChart from 'react-apexcharts';
+import useBorrows from '../hooks/useBorrows';
 
 const Chart = () => {
+  const { borrows } = useBorrows();
+  const groupedBorrows = borrows
+    .filter((borrow) => ['accepted', 'returned'].includes(borrow.status))
+    .reduce((result, borrow) => {
+      const date = new Date(borrow.loanDate);
+      date.setHours(0, 0, 0, 0);
+
+      const timestamp = date.getTime();
+
+      result[timestamp] = (result[timestamp] || 0) + 1;
+      return result;
+    }, {});
+
   const series = [
     {
       name: 'total borrows',
-      data: [
-        { x: new Date('2025-11-23').getTime(), y: 2 },
-        { x: new Date('2025-11-24').getTime(), y: 3 },
-        { x: new Date('2025-11-25').getTime(), y: 4 },
-        { x: new Date('2025-11-26').getTime(), y: 5 },
-        { x: new Date('2025-11-27').getTime(), y: 6 },
-        { x: new Date('2025-11-28').getTime(), y: 7 },
-        { x: new Date('2025-11-29').getTime(), y: 8 },
-      ],
+      data: Object.entries(groupedBorrows)
+        .map(([x, y]) => ({
+          x: Number(x),
+          y,
+        })).sort((a, b) => a.x - b.x),
     },
   ];
 
@@ -53,7 +63,7 @@ const Chart = () => {
       enabled: false,
     },
     stroke: {
-      curve: 'straight',
+      curve: 'smooth',
       width: 2,
     },
     title: {

@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { deleteUser } from '../../../../services/user.service';
 import FormModal from '../../../../components/FormModal';
 
-const DeleteUserFormModal = ({ isOpen, setIsOpen, selectedUser, fetchUsers }) => {
+const DeleteUserFormModal = ({
+  isOpen,
+  setIsOpen,
+  selectedUser,
+  fetchUsers,
+}) => {
   if (!selectedUser) return null;
 
   const [loading, setLoading] = useState(false);
