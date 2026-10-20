@@ -7,9 +7,10 @@ import CategoryFormModal from '../components/forms/CategoryFormModal';
 import CategoryEditFormModal from '../components/forms/EditCategoryFormModal';
 import DeleteCategoryModal from '../components/forms/DeleteCategoryModal';
 import InputSearch from '../../../components/ui/input/search/InputSearch';
+import Pagination from '../../../components/Pagination';
 
 const AdminCategoriesPage = () => {
-  const { categories, search, setSearch, handleSearch, fetchData } =
+  const { categories, search, setSearch, page, pagination, handlePageChange, handleSearch, fetchData, loading } =
     useCategories();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -95,7 +96,12 @@ const AdminCategoriesPage = () => {
         </table>
 
         <div className="border-t border-gray-200 px-6 py-4 text-xs text-gray-500">
-          Showing 1 orders
+          <Pagination
+            page={page}
+            pagination={pagination}
+            handlePageChange={handlePageChange}
+            loading={loading}
+          />
         </div>
 
         <CategoryFormModal

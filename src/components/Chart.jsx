@@ -22,7 +22,8 @@ const Chart = () => {
         .map(([x, y]) => ({
           x: Number(x),
           y,
-        })).sort((a, b) => a.x - b.x),
+        }))
+        .sort((a, b) => a.x - b.x),
     },
   ];
 

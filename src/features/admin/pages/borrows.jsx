@@ -5,9 +5,11 @@ import InputSearch from '../../../components/ui/input/search/InputSearch';
 import useBorrows from '../../../hooks/useBorrows';
 import AcceptBorrowFormModal from '../components/forms/AcceptBorrowFormModal';
 import RejectBorrowFormModal from '../components/forms/RejectBorrowFormModal';
+import Pagination from '../../../components/Pagination';
+
 
 const BorrowsAdminPage = () => {
-  const { borrows, search, setSearch, handleSearch, fetchBorrows } =
+  const { borrows, search, setSearch, page, pagination, handlePageChange, handleSearch, fetchBorrows } =
     useBorrows();
   const [selectedBorrow, setSelectedBorrow] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -129,7 +131,7 @@ const BorrowsAdminPage = () => {
         </table>
 
         <div className="border-t border-gray-200 px-6 py-4 text-xs text-gray-500">
-          Showing 1 orders
+          <Pagination page={page} pagination={pagination} onPageChange={handlePageChange} />
         </div>
       </div>
 

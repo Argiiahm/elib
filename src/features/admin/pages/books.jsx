@@ -9,9 +9,10 @@ import BookFormModal from '../components/forms/BookFormModal';
 import EditBookFormModal from '../components/forms/EditBookFormModal';
 import DeleteBookModal from '../components/forms/DeleteBookModal';
 import { formatDate } from '../../../utils/FormatDate';
+import Pagination from '../../../components/Pagination';
 
 const AdminBooksPage = () => {
-  const { books, search, setSearch, handleSearch, fetchBooks } = useBooks();
+  const { books, search, setSearch, page, pagination, handlePageChange , handleSearch, fetchBooks, loading } = useBooks();
   const [isOpen, setIsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -132,7 +133,12 @@ const AdminBooksPage = () => {
         </table>
 
         <div className="border-t border-gray-200 px-6 py-4 text-xs text-gray-500">
-          Showing 1 orders
+          <Pagination
+            page={page}
+            pagination={pagination}
+            handlePageChange={handlePageChange}
+            loading={loading}
+          />
         </div>
 
         {/* BookFormModal */}
